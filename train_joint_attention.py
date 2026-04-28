@@ -21,7 +21,6 @@ from models.joint_attention_fusion import (
 from data.dataset import get_dataloader
 from utils.lr_scheduler import create_scheduler
 
-
 class EMA:
     def __init__(self, model, decay=0.9999):
         self.model = model
@@ -49,7 +48,6 @@ class EMA:
         for name, param in self.model.named_parameters():
             if param.requires_grad:
                 param.data = self.backup[name].clone()
-
 
 def load_victim_models(config, device):
 
@@ -108,7 +106,6 @@ def load_victim_models(config, device):
         models_dict['vit'] = None
 
     return models_dict
-
 
 def train_epoch(
     diffusion_model,
@@ -256,7 +253,6 @@ def train_epoch(
 
     return avg_loss, loss_dict_total
 
-
 @torch.no_grad()
 def validate(diffusion_model, val_loader, device, epoch, writer):
     diffusion_model.eval()
@@ -288,7 +284,6 @@ def validate(diffusion_model, val_loader, device, epoch, writer):
     writer.add_scalar('val/diffusion', avg_loss, epoch)
 
     return avg_loss
-
 
 def main():
     parser = argparse.ArgumentParser(description='JAD v2.0 Joint Attention Fusion Training')
@@ -475,7 +470,6 @@ def main():
         vit_gradcam_extractor.remove_hooks()
 
     writer.close()
-
 
 if __name__ == '__main__':
     main()

@@ -16,7 +16,7 @@ class UNet2DWithAttention(UNet2DModel):
         start_layer=2,
         end_layer=4,
         extract_mode="attn_probs",
-        attn_res=None,  # 新增参数
+        attn_res=None,  
     ):
         super().__init__(
             sample_size=sample_size,
@@ -28,22 +28,20 @@ class UNet2DWithAttention(UNet2DModel):
             up_block_types=up_block_types,
         )
         
-        # 增加更深的网络来增强注意力适配能力
+
         self.attn_adapter = nn.Sequential(
-            nn.Conv2d(512, 128, kernel_size=3, padding=1),  # 增加深度
+            nn.Conv2d(512, 128, kernel_size=3, padding=1),  
             nn.ReLU(),
-            nn.Conv2d(128, 1, kernel_size=1),  # 最后通过1x1卷积降低通道数
+            nn.Conv2d(128, 1, kernel_size=1),  
             nn.Sigmoid()
         )
         
         self._attn_outputs = []
         self._return_attn = False
 
-        # 注册钩子到所有Attention模块
         self._register_attn_hooks()
 
     def _safe_reshape(self, attn):
-        """处理多头注意力的不同输出形状"""
         if attn.dim() == 4:
             return attn
         elif attn.dim() == 3:
@@ -51,7 +49,7 @@ class UNet2DWithAttention(UNet2DModel):
             H = W = int(N**0.5)
             return attn.permute(0, 2, 1).view(B, D, H, W)
         else:
-            raise ValueError(f"不支持的注意力维度: {attn.dim()}")
+            raise ValueError(f"Unsupported attention dimension: {attn.dim()}")
 
     def _register_attn_hooks(self):
         def hook_fn(module, input, output):
@@ -88,9 +86,8 @@ class UNet2DWithAttention(UNet2DModel):
             adjusted_attn = []
             for attn in self._attn_outputs:
                 attn_reshaped = self._safe_reshape(attn)
-                assert attn_reshaped.size(1) == 512, f"通道数异常: {attn_reshaped.shape}"
+                assert attn_reshaped.size(1) == 512, f"Invalid channel dimension: {attn_reshaped.shape}"
                 
-                # 空间插值和通道适配
                 attn_resized = F.interpolate(attn_reshaped, (224, 224), mode='bilinear')
                 attn_out = self.attn_adapter(attn_resized)
                 adjusted_attn.append(attn_out)

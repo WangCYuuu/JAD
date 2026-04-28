@@ -1,8 +1,11 @@
-# JAD Final: Joint Attention Distillation for Black-box Attacks
+# JAD : Joint Attention Distillation for Black-box Attacks
 
 This repository contains the attack code and checkpoints for the paper:
 
 **Latent Danger Zone: Distilling Unified Attention for Cross-Architecture Black-box Attacks**
+
+> **Implementation Note.**  
+> This repository provides the officially maintained **JAD v2.0** implementation, with an optimized hierarchical QKV-based attention distillation pipeline.
 
 ---
 
@@ -13,8 +16,18 @@ This project provides a latent-diffusion-based black-box attack pipeline with un
 Main components include:
 
 - **Hierarchical greedy black-box attack evaluation**
-- **Cross-architecture attention extraction and fusion modules**
+- **Cross-architecture attention / QKV distillation modules**
 - **CIFAR-10 and ImageNet-oriented attack config templates**
+
+---
+
+## Version Notice
+
+This repository provides the officially maintained **JAD v2.0** implementation for the proposed cross-architecture black-box attack framework.
+
+JAD v2.0 keeps the core design of joint attention distillation and further improves the engineering implementation of the training and evaluation pipeline. In particular, this release introduces a hierarchical QKV-based distillation module to support more efficient cross-architecture feature alignment, faster iterative attack evaluation, and lower memory overhead in practical experiments.
+
+The released code is organized for reproducibility, extensibility, and efficient deployment, while preserving the main motivation of JAD: distilling complementary CNN and ViT information into a latent diffusion attack generator.
 
 ---
 
@@ -48,7 +61,7 @@ Install dependencies according to your platform/CUDA version.
 
 To run the attack, please download the required checkpoint from:
 
-https://drive.google.com/file/d/1w5Tz3HTi_K9nhALWXiR9XRe-cPtThj8N/view?usp=drive_link
+https://drive.google.com/drive/folders/13Arvu7NDvWecjnUNpf53d03oYxr616f9?usp=drive_link
 
 In addition, you need to prepare the following model asset folders locally and place them under `models/`:
 
@@ -56,6 +69,10 @@ In addition, you need to prepare the following model asset folders locally and p
 - `models/stable-diffusion-v1-5`
 
 These folders are required by the attack pipeline and are not included in this repository.
+
+The adversarial pair file data/adv_pairs/cifar10_dual_arch_eps16.pth has also been uploaded to cloud storage. Please download it yourself and place it at: 
+
+- `data/adv_pairs/cifar10_dual_arch_eps16.pth`
 
 After downloading the checkpoint, place it in your local `checkpoints/` directory (or any path you prefer), and pass the path via `--model`.
 
