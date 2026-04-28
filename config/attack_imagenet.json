@@ -1,0 +1,28 @@
+{
+    "name": "JAD_V2_Attack_ImageNet",
+    "version": "2.0-imagenet",
+    "gpu_id": 0,
+    
+    "data": {
+        "val_root": "/home/wcy/code/data/imagenet_mini/val"
+    },
+    
+    "attack": {
+        "dataset": "imagenet",
+        "batch_size": 50,
+        "eps": 16,
+        "image_size": 224
+    },
+    
+    "victim_model": {
+        "arch": "resnet50",
+        "num_classes": 1000
+    },
+    
+    "output": {
+        "save_dir": "results/imagenet_attack",
+        "save_successful": true,
+        "max_save_images": 100
+    }
+}
+

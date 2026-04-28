@@ -1,0 +1,29 @@
+{
+    "name": "JAD_V2_Attack_SwinT",
+    "version": "2.0",
+    "gpu_id": 0,
+    
+    "attack": {
+        "dataset": "cifar10",
+        "num_samples": 10000,
+        "batch_size": 100,
+        "eps": 4,
+        "max_queries": 1000,
+        "targeted": false,
+        "use_refinement": false,
+        "refinement_iters": 3,
+        "q_budget_per_sample": 1000
+    },
+    
+    "victim_model": {
+        "arch": "swin_tiny_patch4_window7_224",
+        "weights_path": "checkpoints/victims/cifar10/swin_t.pth",
+        "num_classes": 10
+    },
+    
+    "output": {
+        "save_dir": "results/attack_swin",
+        "save_successful": true,
+        "max_save_images": 1
+    }
+}

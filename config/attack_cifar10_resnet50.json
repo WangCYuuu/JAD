@@ -1,0 +1,30 @@
+{
+    "name": "JAD_V2_Attack_ResNet50",
+    "version": "2.0",
+    "gpu_id": 5,
+    
+    "attack": {
+        "dataset": "cifar10",
+        "num_samples": 10000,
+        "batch_size": 100,
+        "eps": 4,
+        "max_queries": 1000,
+        "targeted": false,
+        "use_refinement": false,
+        "refinement_iters": 3,
+        "q_budget_per_sample": 1000
+    },
+    
+    "victim_model": {
+        "arch": "resnet50",
+        "weights_path": "checkpoints/victims/cifar10/resnet50.pth",
+        "num_classes": 10
+    },
+    
+    "output": {
+        "save_dir": "results/attack_resnet50",
+        "save_successful": true,
+        "max_save_images": 100
+    }
+}
+
