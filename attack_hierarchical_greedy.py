@@ -1,21 +1,3 @@
-"""JAD v2.0 Greedy (Candidate) Hierarchical Attack
-
-在每一步去噪(denoising)时做候选搜索：
-- 对当前 z_t 生成 num_candidates 个候选 z_next
-- 将每个候选 decode 到图像空间并查询 victim
-- 以 CrossEntropyLoss 作为 score（loss 越大越“更对抗”），选 score 最大的候选作为下一步 z_t
-
-注意：
-- 这会显著增加查询次数：每个 denoising step 会查询 num_candidates 次。
-- 由于本 repo 的 LatentDiffusionAttack._p_sample_step 内部会采样随机噪声，这里通过为每个 candidate
-  设置不同随机种子来得到不同 z_next（相当于不同噪声）。
-
-与 attack_hierarchical.py 的主要区别：
-- 使用 greedy candidate search 的采样函数 diffusion_model.sample_greedy(...)
-- victim 支持 densenet169（torchvision）以及原先 resnet/swin/timm
-- 保存路径：<save_dir>/<attack_tag>/<YYYYmmdd_HHMMSS>/<victim_name>/
-"""
-
 import argparse
 import datetime
 import json
