@@ -19,15 +19,6 @@ Main components include:
 - **Cross-architecture attention / QKV distillation modules**
 - **CIFAR-10 and ImageNet-oriented attack config templates**
 
----
-
-## Version Notice
-
-This repository provides the officially maintained **JAD v2.0** implementation for the proposed cross-architecture black-box attack framework.
-
-JAD v2.0 keeps the core design of joint attention distillation and further improves the engineering implementation of the training and evaluation pipeline. In particular, this release introduces a hierarchical QKV-based distillation module to support more efficient cross-architecture feature alignment, faster iterative attack evaluation, and lower memory overhead in practical experiments.
-
-The released code is organized for reproducibility, extensibility, and efficient deployment, while preserving the main motivation of JAD: distilling complementary CNN and ViT information into a latent diffusion attack generator.
 
 ---
 
@@ -95,6 +86,14 @@ Notes:
 1. `--model` should be the downloaded pretrained diffusion checkpoint.
 2. `--victim_weights` should be a trained victim classifier checkpoint.
 3. Make sure the VAE path used in the code/config is valid in your environment.
+
+---
+
+## Version Notice
+
+This repository provides the officially maintained **JAD v2.0** implementation.
+
+JAD v2.0 preserves the core idea of joint attention distillation and introduces a hierarchical QKV-based distillation module for faster attack evaluation, lower memory overhead, and better extensibility.
 
 ---
 
