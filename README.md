@@ -2,7 +2,7 @@
 
 This repository contains the attack code and checkpoints for the paper:
 
-###Latent Danger Zone: Distilling Unified Attention for Cross-Architecture Black-box Attacks**
+## Latent Danger Zone: Distilling Unified Attention for Cross-Architecture Black-box Attacks
 
 > **Implementation Note.**  
 > This repository provides the officially maintained **JAD v2.0** implementation, with an optimized hierarchical QKV-based attention distillation pipeline.
